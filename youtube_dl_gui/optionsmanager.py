@@ -9,6 +9,8 @@ import json
 import os.path
 
 from .utils import (
+    os_path_expanduser,
+    os_path_exists,
     encode_tuple,
     decode_tuple,
     check_path
@@ -76,7 +78,7 @@ class OptionsManager(object):
                 after post processing it.
 
             audio_format (string): Audio format of the post processed file.
-                Available values are "mp3", "wav", "aac", "m4a", "vorbis".
+                Available values are "mp3", "wav", "aac", "m4a", "vorbis", "opus".
 
             audio_quality (string): Audio quality of the post processed file.
                 Available values are "9", "5", "0". The lowest the value the
@@ -198,7 +200,7 @@ class OptionsManager(object):
 
         """
         self.options = {
-            'save_path': os.path.expanduser('~'),
+            'save_path': os_path_expanduser('~'),
             'video_format': '0',
             'second_video_format': '0',
             'to_audio': False,
@@ -246,7 +248,7 @@ class OptionsManager(object):
 
     def load_from_file(self):
         """Load options from settings file. """
-        if not os.path.exists(self.settings_file):
+        if not os_path_exists(self.settings_file):
             return
 
         with open(self.settings_file, 'rb') as settings_file:
@@ -285,7 +287,7 @@ class OptionsManager(object):
             '264', '138', '242', '243', '244', '247', '248', '271', '272', '82',
             '83', '84', '85', '100', '101', '102', '139', '140', '141', '171', '172')
 
-        VALID_AUDIO_FORMAT = ('mp3', 'wav', 'aac', 'm4a', 'vorbis')
+        VALID_AUDIO_FORMAT = ('mp3', 'wav', 'aac', 'm4a', 'vorbis', 'opus')
 
         VALID_AUDIO_QUALITY = ('0', '5', '9')
 

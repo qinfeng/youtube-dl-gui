@@ -20,7 +20,10 @@ from .info import (
     __author__
 )
 
-from .utils import TwoWayOrderedDict as twodict
+from .utils import (
+    TwoWayOrderedDict as twodict,
+    os_path_exists
+)
 
 
 class OptionsFrame(wx.Frame):
@@ -765,7 +768,7 @@ class AudioTab(TabPanel):
 
     """
     AUDIO_QUALITY = twodict([("0", _("high")), ("5", _("mid")), ("9", _("low"))])
-    AUDIO_FORMATS = ["mp3", "wav", "aac", "m4a", "vorbis"]
+    AUDIO_FORMATS = ["mp3", "wav", "aac", "m4a", "vorbis", "opus"]
 
     TO_AUDIO_LABEL = _("Convert to Audio")
     KEEP_VIDEO_LABEL = _("Keep Video")
@@ -1176,6 +1179,7 @@ class SubtitlesTab(TabPanel):
         ("it", _("Italian")),
         ("ru", _("Russian")),
         ("es", _("Spanish")),
+        ("tr", _("Turkish")),
         ("de", _("German"))
     ])
 
@@ -1415,13 +1419,18 @@ class LocalizationTab(TabPanel):
 
     LOCALE_NAMES = twodict([
         ('ar_AR', 'Arabic'),
+        ('cs_CZ', 'Czech'),
         ('en_US', 'English'),
+        ('nl_NL', 'Nederlands'),
         ('fr_FR', 'French'),
         ('de_DE', 'German'),
+        ('it_IT', 'Italian'),
         ('he_IS', 'Hebrew'),
+        ('hu_HU', 'Hungarian'),
         ('pt_BR', 'Portuguese'),
         ('ru_RU', 'Russian'),
-        ('es_MX', 'Spanish'),
+        ('es_ES', 'Spanish'),
+        ('es_MX', 'Mexican Spanish'),
         ('tr_TR', 'Turkish')
     ])
 
@@ -1493,5 +1502,5 @@ class LogGUI(wx.Frame):
 
     def load(self, filename):
         """Load file content on the text area. """
-        if os.path.exists(filename):
+        if os_path_exists(filename):
             self._text_area.LoadFile(filename)
